@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Profile — NADRA Digital Learning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand"><span class="dot"></span>LMS</div>
+    <div class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" data-placeholder data-en="Search for courses, skills, or mentors…" data-ur="کورسز، مہارتیں یا مینٹرز تلاش کریں…" placeholder="Search for courses, skills, or mentors…" />
+    </div>
+    <div class="right">
+      <div class="lang-toggle">
+        <button data-lang="en" class="active">EN</button>
+        <span style="opacity:.4">|</span>
+        <button data-lang="ur">اردو</button>
+      </div>
+      <button class="icon-btn" aria-label="Notifications">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        <span class="badge-dot"></span>
+      </button>
+      <img class="avatar" src="assets/avatar.svg" alt="User avatar" />
+    </div>
+  </header>
+
+  <div class="body-shell">
+    <aside class="sidebar">
+      <div class="welcome">
+        <h1 data-en="Welcome back" data-ur="خوش آمدید">Welcome back</h1>
+        <p data-en="Continue your journey" data-ur="اپنا سفر جاری رکھیں">Continue your journey</p>
+      </div>
+      <ul class="nav">
+        <li><a href="dashboard.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          <span data-en="Dashboard" data-ur="ڈیش بورڈ">Dashboard</span>
+        </a></li>
+        <li><a href="courses.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>
+          <span data-en="My Courses" data-ur="میرے کورسز">My Courses</span>
+        </a></li>
+        <li><a href="badges.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M8.2 13.5 6 22l6-3 6 3-2.2-8.5"/></svg>
+          <span data-en="Badges & Certificates" data-ur="بیجز اور سرٹیفیکیٹس">Badges &amp; Certificates</span>
+        </a></li>
+        <li><a href="profile.html" class="active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 5-7 8-7s6.5 2.5 8 7"/></svg>
+          <span data-en="Profile" data-ur="پروفائل">Profile</span>
+        </a></li>
+      </ul>
+      <a href="index.html" class="logout">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+        <span data-en="Logout" data-ur="لاگ آؤٹ">Logout</span>
+      </a>
+    </aside>
+
+    <main class="main" style="max-width:900px;">
+      <h1 class="page-title" data-en="Profile" data-ur="پروفائل">Profile</h1>
+      <p class="page-sub" data-en="Keep your employee details up to date." data-ur="اپنی ملازمت کی تفصیلات کو تازہ رکھیں۔">Keep your employee details up to date.</p>
+
+      <div class="panel">
+        <div class="profile-header">
+          <img src="assets/avatar.svg" alt="Profile photo" />
+          <div>
+            <h2 data-en="Employee Profile" data-ur="ملازم پروفائل">Employee Profile</h2>
+            <p data-en="Fields marked required must be completed." data-ur="لازمی نشان زدہ خانے مکمل کرنا ضروری ہیں۔">Fields marked required must be completed.</p>
+            <span class="pill-tag" data-en="Active Employee" data-ur="فعال ملازم">Active Employee</span>
+          </div>
+        </div>
+
+        <form id="profileForm" novalidate>
+          <div class="form-grid">
+
+            <div class="field full" data-required>
+              <label data-en="Name" data-ur="نام">Name</label>
+              <input type="text" id="name" data-placeholder data-en="Enter full name" data-ur="مکمل نام درج کریں" placeholder="Enter full name" required />
+              <span class="error" data-en="Name is required." data-ur="نام درج کرنا ضروری ہے۔">Name is required.</span>
+            </div>
+
+            <div class="field" data-required>
+              <label data-en="Employee ID" data-ur="ملازم آئی ڈی">Employee ID</label>
+              <input type="text" id="employeeId" data-placeholder data-en="e.g. NDR-04521" data-ur="مثال: NDR-04521" placeholder="e.g. NDR-04521" required />
+              <span class="error" data-en="Employee ID is required." data-ur="ملازم آئی ڈی درج کرنا ضروری ہے۔">Employee ID is required.</span>
+            </div>
+
+            <div class="field" data-required>
+              <label>CNIC <span class="hint" data-en="(00000-0000000-0)" data-ur="(00000-0000000-0)">(00000-0000000-0)</span></label>
+              <input type="text" id="cnic" data-placeholder data-en="00000-0000000-0" data-ur="00000-0000000-0" placeholder="00000-0000000-0" inputmode="numeric" required />
+              <span class="error" data-en="Enter a valid 13-digit CNIC." data-ur="درست 13 ہندسوں کا شناختی کارڈ نمبر درج کریں۔">Enter a valid 13-digit CNIC.</span>
+            </div>
+
+            <div class="field" data-required>
+              <label data-en="Region" data-ur="خطہ">Region</label>
+              <select id="region" required>
+                <option value="" data-en="Select region" data-ur="خطہ منتخب کریں">Select region</option>
+                <option data-en="Punjab" data-ur="پنجاب">Punjab</option>
+                <option data-en="Sindh" data-ur="سندھ">Sindh</option>
+                <option data-en="Khyber Pakhtunkhwa" data-ur="خیبر پختونخوا">Khyber Pakhtunkhwa</option>
+                <option data-en="Balochistan" data-ur="بلوچستان">Balochistan</option>
+                <option data-en="Islamabad Capital Territory" data-ur="اسلام آباد کیپیٹل ٹیریٹری">Islamabad Capital Territory</option>
+                <option data-en="Azad Jammu & Kashmir" data-ur="آزاد جموں و کشمیر">Azad Jammu &amp; Kashmir</option>
+                <option data-en="Gilgit-Baltistan" data-ur="گلگت بلتستان">Gilgit-Baltistan</option>
+              </select>
+              <span class="error" data-en="Please select a region." data-ur="براہ کرم خطہ منتخب کریں۔">Please select a region.</span>
+            </div>
+
+            <div class="field full" data-required>
+              <label data-en="Place of Duty" data-ur="جائے تعیناتی">Place of Duty</label>
+              <input type="text" id="placeOfDuty" data-placeholder data-en="e.g. NADRA Registration Center, Rawalpindi" data-ur="مثال: نادرا رجسٹریشن سینٹر، راولپنڈی" placeholder="e.g. NADRA Registration Center, Rawalpindi" required />
+              <span class="error" data-en="Place of duty is required." data-ur="جائے تعیناتی درج کرنا ضروری ہے۔">Place of duty is required.</span>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button type="reset" class="btn ghost" data-en="Cancel" data-ur="منسوخ کریں">Cancel</button>
+            <button type="submit" class="btn" data-en="Save Changes" data-ur="تبدیلیاں محفوظ کریں">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="js/app.js"></script>
+</body>
+</html>
