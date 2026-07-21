@@ -1,6 +1,7 @@
 /* ==========================================================================
    NADRA Digital Learning — App Logic
-   Language toggle, CNIC formatting, form validation, toast, mobile nav
+   Language toggle, CNIC formatting, form validation, toast, notifications,
+   loading states, mobile nav
    ========================================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,6 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initProfileValidation();
   initLoginValidation();
   initSignupValidation();
+  initForgotPasswordValidation();
+  initNotifDropdown();
+  initAvatarUpload();
 });
 
 /* ---------- Language toggle (EN / اردو) ---------- */
@@ -21,8 +25,6 @@ function applyLang(lang) {
     if (text !== null) {
       if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
         el.setAttribute("placeholder", text);
-      } else if (el.tagName === "OPTION") {
-        el.textContent = text;
       } else {
         el.textContent = text;
       }
@@ -62,7 +64,6 @@ function formatCnic(value) {
 }
 
 function initCnicFormat() {
-  // Works on any page that has an element with id="cnic" (profile.html, signup.html)
   const cnicField = document.getElementById("cnic");
   if (!cnicField) return;
 
@@ -93,7 +94,6 @@ function validateRequired(form) {
     }
   });
 
-  // Extra check: CNIC must be full length if the field exists in this form
   const cnicField = form.querySelector("#cnic");
   if (cnicField && cnicField.value) {
     const digits = cnicField.value.replace(/\D/g, "");
@@ -108,6 +108,19 @@ function validateRequired(form) {
   return isValid;
 }
 
+/* ---------- Helper: show a temporary loading spinner on a submit button ---------- */
+function withButtonLoading(button, durationMs, callback) {
+  if (!button) {
+    callback();
+    return;
+  }
+  button.classList.add("is-loading");
+  setTimeout(() => {
+    button.classList.remove("is-loading");
+    callback();
+  }, durationMs);
+}
+
 /* ---------- Profile form ---------- */
 function initProfileValidation() {
   const form = document.getElementById("profileForm");
@@ -115,11 +128,15 @@ function initProfileValidation() {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (validateRequired(form)) {
-      showToast("Profile saved successfully");
-    } else {
-      showToast("Please fill in all required fields");
-    }
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    withButtonLoading(submitBtn, 800, () => {
+      if (validateRequired(form)) {
+        showToast("Profile saved successfully");
+      } else {
+        showToast("Please fill in all required fields");
+      }
+    });
   });
 
   form.querySelectorAll("[required]").forEach((field) => {
@@ -140,12 +157,16 @@ function initLoginValidation() {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (validateRequired(form)) {
-      // NOTE: replace with real auth call once backend is wired up
-      window.location.href = "dashboard.html";
-    } else {
-      showToast("Please enter your Employee ID and Password");
-    }
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    withButtonLoading(submitBtn, 700, () => {
+      if (validateRequired(form)) {
+        // NOTE: replace with real auth call once backend is wired up
+        window.location.href = "dashboard.html";
+      } else {
+        showToast("Please enter your Employee ID and Password");
+      }
+    });
   });
 }
 
@@ -156,6 +177,7 @@ function initSignupValidation() {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+    const submitBtn = form.querySelector('button[type="submit"]');
 
     const fieldsValid = validateRequired(form);
     const password = form.querySelector("#password");
@@ -175,17 +197,19 @@ function initSignupValidation() {
       }
     }
 
-    if (fieldsValid && passwordsMatch) {
-      // NOTE: replace with real signup API call once backend is wired up
-      showToast("Account created — redirecting to sign in…");
-      setTimeout(() => {
-        window.location.href = "index.html";
-      }, 1200);
-    } else if (!passwordsMatch) {
-      showToast("Passwords do not match");
-    } else {
-      showToast("Please fill in all required fields");
-    }
+    withButtonLoading(submitBtn, 900, () => {
+      if (fieldsValid && passwordsMatch) {
+        // NOTE: replace with real signup API call once backend is wired up
+        showToast("Account created — redirecting to sign in…");
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1200);
+      } else if (!passwordsMatch) {
+        showToast("Passwords do not match");
+      } else {
+        showToast("Please fill in all required fields");
+      }
+    });
   });
 
   form.querySelectorAll("[required]").forEach((field) => {
@@ -196,6 +220,86 @@ function initSignupValidation() {
         field.classList.remove("invalid");
       }
     });
+  });
+}
+
+/* ---------- Forgot password form (forgot-password.html) ---------- */
+function initForgotPasswordValidation() {
+  const form = document.getElementById("forgotPasswordForm");
+  if (!form) return;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    withButtonLoading(submitBtn, 900, () => {
+      if (validateRequired(form)) {
+        // NOTE: replace with real "send reset email" API call once backend is wired up
+        showToast("If that Employee ID exists, a reset link has been sent");
+        form.reset();
+      } else {
+        showToast("Please enter your Employee ID");
+      }
+    });
+  });
+}
+
+/* ---------- Notifications dropdown ---------- */
+function initNotifDropdown() {
+  const btn = document.getElementById("notifBtn");
+  const dropdown = document.getElementById("notifDropdown");
+  if (!btn || !dropdown) return;
+
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isOpen = dropdown.classList.toggle("open");
+    btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!dropdown.contains(e.target) && e.target !== btn) {
+      dropdown.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      dropdown.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  const clearBtn = dropdown.querySelector(".notif-clear");
+  clearBtn?.addEventListener("click", () => {
+    dropdown.querySelectorAll(".notif-item").forEach((item) => item.classList.remove("unread"));
+    dropdown.querySelectorAll(".notif-dot").forEach((dot) => dot.classList.add("read"));
+    const badgeDot = btn.querySelector(".badge-dot");
+    if (badgeDot) badgeDot.style.display = "none";
+  });
+}
+
+/* ---------- Avatar upload preview (profile.html) ---------- */
+function initAvatarUpload() {
+  const input = document.getElementById("avatarInput");
+  const preview = document.getElementById("avatarPreview");
+  if (!input || !preview) return;
+
+  input.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      showToast("Please select an image file");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      preview.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+    // NOTE: actual upload to server happens once backend endpoint is available
   });
 }
 
