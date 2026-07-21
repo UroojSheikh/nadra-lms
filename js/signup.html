@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign Up — NADRA Digital Learning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="auth-shell">
+  <div class="auth-side">
+    <div class="brand"><span class="dot"></span><span data-en="NADRA Digital Learning" data-ur="نادرا ڈیجیٹل لرننگ">NADRA Digital Learning</span></div>
+    <div class="quote">
+      <span data-en="Create your account to start learning and earning certifications."
+            data-ur="سیکھنے اور سرٹیفیکیشن حاصل کرنے کے لیے اپنا اکاؤنٹ بنائیں۔">
+        Create your account to start learning and earning certifications.
+      </span>
+      <small data-en="Employee Learning & Certification Portal" data-ur="ملازمین لرننگ اور سرٹیفیکیشن پورٹل">Employee Learning &amp; Certification Portal</small>
+    </div>
+    <div class="lang-toggle" style="align-self:flex-start;">
+      <button data-lang="en" class="active">EN</button>
+      <span style="opacity:.4">|</span>
+      <button data-lang="ur">اردو</button>
+    </div>
+  </div>
+
+  <div class="auth-form-col">
+    <form class="auth-form" id="signupForm" novalidate>
+      <h1 data-en="Create account" data-ur="اکاؤنٹ بنائیں">Create account</h1>
+      <p data-en="Register with your official employee details." data-ur="اپنی سرکاری ملازمت کی تفصیلات کے ساتھ رجسٹر کریں۔">Register with your official employee details.</p>
+
+      <div class="field">
+        <label data-en="Full Name" data-ur="پورا نام">Full Name</label>
+        <input type="text" id="fullName" placeholder="e.g. Ayesha Khan" required />
+      </div>
+
+      <div class="field">
+        <label data-en="Employee ID" data-ur="ملازم آئی ڈی">Employee ID</label>
+        <input type="text" id="employeeId" placeholder="e.g. NDR-04521" required />
+      </div>
+
+      <div class="field">
+        <label data-en="CNIC" data-ur="شناختی کارڈ نمبر">CNIC</label>
+        <input type="text" id="cnic" placeholder="e.g. 12345-1234567-1" required />
+      </div>
+
+      <div class="field">
+        <label data-en="Region" data-ur="خطہ">Region</label>
+        <select id="region" required>
+          <option value="" disabled selected data-en="Select region" data-ur="خطہ منتخب کریں">Select region</option>
+          <option value="punjab" data-en="Punjab" data-ur="پنجاب">Punjab</option>
+          <option value="sindh" data-en="Sindh" data-ur="سندھ">Sindh</option>
+          <option value="kpk" data-en="Khyber Pakhtunkhwa" data-ur="خیبر پختونخوا">Khyber Pakhtunkhwa</option>
+          <option value="balochistan" data-en="Balochistan" data-ur="بلوچستان">Balochistan</option>
+          <option value="gb" data-en="Gilgit-Baltistan" data-ur="گلگت بلتستان">Gilgit-Baltistan</option>
+          <option value="ict" data-en="Islamabad Capital Territory" data-ur="اسلام آباد کیپیٹل ٹیریٹری">Islamabad Capital Territory</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label data-en="Place of Duty" data-ur="جائے تعیناتی">Place of Duty</label>
+        <input type="text" id="placeOfDuty" placeholder="e.g. Rawalpindi HQ" required />
+      </div>
+
+      <div class="field">
+        <label data-en="Email" data-ur="ای میل">Email</label>
+        <input type="email" id="email" placeholder="you@nadra.gov.pk" required />
+      </div>
+
+      <div class="field">
+        <label data-en="Password" data-ur="پاس ورڈ">Password</label>
+        <input type="password" id="password" placeholder="Create a password" required minlength="8" />
+      </div>
+
+      <div class="field">
+        <label data-en="Confirm Password" data-ur="پاس ورڈ کی تصدیق کریں">Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="Re-enter your password" required minlength="8" />
+      </div>
+
+      <button type="submit" class="btn block" data-en="Create account" data-ur="اکاؤنٹ بنائیں">Create account</button>
+
+      <p class="auth-foot" data-en="Already have an account? Sign in." data-ur="پہلے سے اکاؤنٹ موجود ہے؟ سائن ان کریں۔">
+        Already have an account? <a href="index.html" style="color:var(--green-700);font-weight:600;">Sign in</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="js/app.js"></script>
+</body>
+</html>
